@@ -232,7 +232,21 @@ def pregunta_07():
     ]
 
     """
-    return
+
+    dict = {}
+
+    with open("data.csv", "r") as file:
+        file = [line.split("\t") for line in file]
+        for line in file:
+            key = int(line[1])
+            value = line[0]
+            dict[key] = dict.get(key, [])
+            dict[key].append(value)
+
+        list = [(keys, dict[keys]) for keys in dict]
+        list = sorted(list, key = itemgetter(0))
+
+    return list
 
 
 def pregunta_08():
@@ -257,7 +271,24 @@ def pregunta_08():
     ]
 
     """
-    return
+
+    
+    dict = {}
+
+    with open("data.csv", "r") as file:
+        file = [line.split("\t") for line in file]
+        for line in file:
+            key = int(line[1])
+            value = line[0]
+            dict[key] = dict.get(key, set())
+            dict[key].add(value)
+
+        list = [(keys, dict[keys]) for keys in dict]
+        list = [(keys, [value for value in values]) for keys, values in list]
+        list = [(keys, sorted(lists, key = itemgetter(0))) for keys, lists in list]
+        list = sorted(list, key = itemgetter(0))
+
+    return list
 
 
 def pregunta_09():
@@ -280,7 +311,22 @@ def pregunta_09():
     }
 
     """
-    return
+
+    dict = {}
+
+    with open("data.csv", "r") as file:
+        file = [line.replace("\n", "") for line in file]
+        file = [line.split("\t") for line in file]
+        colum = [line[4].split(",") for line in file]
+        list = reduce(lambda x, y: x + y, colum)
+        list = [item.split(":")[0] for item in list]
+        for item in list:
+            key = item
+            dict[key] = dict.get(key, 0) + 1
+
+        dict1 = {keys : dict[keys] for keys in sorted(dict)}
+
+    return dict1
 
 
 def pregunta_10():
@@ -301,7 +347,15 @@ def pregunta_10():
 
 
     """
-    return
+
+    list = {}
+
+    with open("data.csv", "r") as file:
+        file = [line.replace("\n", "") for line in file]
+        file = [line.split("\t") for line in file]
+        list = [(line[0], len(line[3].split(",")), line[4].count(":")) for line in file]
+
+    return list
 
 
 def pregunta_11():
@@ -343,9 +397,20 @@ def pregunta_12():
     return
 
 if __name__ == "__main__":
+    with open("data.csv", "r") as file:
+        file = [line.replace("\n", "") for line in file]
+        for line in file:
+            print(line)
+
+    print("\n")
+
     print("1\t" + str(pregunta_01()))
     print("2\t" + str(pregunta_02()))
     print("3\t" + str(pregunta_03()))
     print("4\t" + str(pregunta_04()))
     print("5\t" + str(pregunta_05()))
     print("6\t" + str(pregunta_06()))
+    print("7\t" + str(pregunta_07()))
+    print("8\t" + str(pregunta_08()))
+    print("9\t" + str(pregunta_09()))
+    print("10\t" + str(pregunta_10()))
