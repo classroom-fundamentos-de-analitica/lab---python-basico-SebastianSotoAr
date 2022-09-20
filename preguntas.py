@@ -376,7 +376,22 @@ def pregunta_11():
 
 
     """
-    return
+
+    dict = {}
+
+    with open("data.csv", "r") as file:
+        file = [line.replace("\n", "") for line in file]
+        file = [line.split("\t") for line in file]
+        list = [(line[1], line[3].split(",")) for line in file]
+        list = [(line[0], word[0]) for line in list for word in line[1]]
+        list = sorted(list, key = itemgetter(1))
+        for item in list:
+            key = item[1]
+            value = int(item[0])
+            dict[key] = dict.get(key, 0) + value
+
+
+    return dict
 
 
 def pregunta_12():
@@ -394,7 +409,22 @@ def pregunta_12():
     }
 
     """
-    return
+
+
+    dict = {}
+
+    with open("data.csv", "r") as file:
+        file = [line.replace("\n", "") for line in file]
+        file = [line.split("\t") for line in file]
+        list = [(line[0], line[4].split(",")) for line in file]
+        list = [(line[0], word[4:]) for line in list for word in line[1]]
+        list = sorted(list, key = itemgetter(0))
+        for item in list:
+            key = item[0]
+            value = int(item[1])
+            dict[key] = dict.get(key, 0) + value
+
+    return dict
 
 if __name__ == "__main__":
     with open("data.csv", "r") as file:
@@ -414,3 +444,5 @@ if __name__ == "__main__":
     print("8\t" + str(pregunta_08()))
     print("9\t" + str(pregunta_09()))
     print("10\t" + str(pregunta_10()))
+    print("11\t" + str(pregunta_11()))
+    print("12\t" + str(pregunta_12()))
