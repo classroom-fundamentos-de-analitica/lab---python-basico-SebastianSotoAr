@@ -157,7 +157,7 @@ def pregunta_05():
         file = [line.split("\t") for line in file]
         for line in file:
             key = line[0]
-            value = line[1]
+            value = int(line[1])
             dict[key] = dict.get(key, [])
             dict[key].append(value)
 
@@ -343,9 +343,9 @@ def pregunta_12():
     return
 
 if __name__ == "__main__":
-    print(pregunta_01())
-    print(pregunta_02())
-    print(pregunta_03())
-    print(pregunta_04())
-    print(pregunta_05())
-    print(pregunta_06())
+    print("1\t" + str(pregunta_01()))
+    print("2\t" + str(pregunta_02()))
+    print("3\t" + str(pregunta_03()))
+    print("4\t" + str(pregunta_04()))
+    print("5\t" + str(pregunta_05()))
+    print("6\t" + str(pregunta_06()))
