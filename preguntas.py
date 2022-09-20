@@ -200,7 +200,7 @@ def pregunta_06():
         list = [item.split(":") for item in list]
         for item in list:
             key = item[0]
-            value = item[1]
+            value = int(item[1])
             dict[key] = dict.get(key, [])
             dict[key].append(value)
 
