@@ -12,6 +12,9 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 
 """
 
+from datetime import datetime
+from functools import reduce
+from operator import itemgetter
 
 def pregunta_01():
     """
@@ -21,7 +24,15 @@ def pregunta_01():
     214
 
     """
-    return
+
+    sum = 0
+
+    with open("data.csv", "r") as file:
+        file = [line.split("\t") for line in file]
+        file = [int(line[1]) for line in file]
+        sum = reduce(lambda x, y : x + y, file)
+
+    return sum
 
 
 def pregunta_02():
@@ -39,7 +50,19 @@ def pregunta_02():
     ]
 
     """
-    return
+
+    dict = {}
+
+    with open("data.csv", "r") as file:
+        file = [line.split("\t") for line in file]
+        for line in file:
+            key = line[0]
+            dict[key] = dict.get(key, 0) + 1
+    
+    list = [(key, dict[key]) for key in dict]
+    list = sorted(list, key = itemgetter(0))
+
+    return list
 
 
 def pregunta_03():
@@ -57,7 +80,20 @@ def pregunta_03():
     ]
 
     """
-    return
+
+    dict = {}
+
+    with open("data.csv", "r") as file:
+        file = [line.split("\t") for line in file]
+        for line in file:
+            key = line[0]
+            value = int(line[1])
+            dict[key] = dict.get(key, 0) + value
+    
+    list = [(key, dict[key]) for key in dict]
+    list = sorted(list, key = itemgetter(0))
+
+    return list
 
 
 def pregunta_04():
@@ -82,7 +118,21 @@ def pregunta_04():
     ]
 
     """
-    return
+
+    dict = {}
+
+    with open("data.csv", "r") as file:
+        file = [line.split("\t") for line in file]
+        for line in file:
+            key = line[2].split("-")
+            key = key[1]
+            value = int(line[1])
+            dict[key] = dict.get(key, 0) + 1
+
+    list = [(key, dict[key]) for key in dict]
+    list = sorted(list, key = itemgetter(0))
+
+    return list
 
 
 def pregunta_05():
@@ -100,7 +150,21 @@ def pregunta_05():
     ]
 
     """
-    return
+
+    dict = {}
+
+    with open("data.csv", "r") as file:
+        file = [line.split("\t") for line in file]
+        for line in file:
+            key = line[0]
+            value = int(line[1])
+            dict[key] = dict.get(key, [])
+            dict[key].append(value)
+
+        list = [(key1, max(dict[key1]), min(dict[key1])) for key1 in dict]
+        list = sorted(list, key = itemgetter(0))
+
+    return list
 
 
 def pregunta_06():
@@ -125,7 +189,26 @@ def pregunta_06():
     ]
 
     """
-    return
+
+    dict = {}
+
+    with open("data.csv", "r") as file:
+        file = [line.replace("\n", "") for line in file]
+        file = [line.split("\t") for line in file]
+        colum = [line[4].split(",") for line in file]
+        list = reduce(lambda x, y: x + y, colum)
+        list = [item.split(":") for item in list]
+        for item in list:
+            key = item[0]
+            value = int(item[1])
+            dict[key] = dict.get(key, [])
+            dict[key].append(value)
+
+        list1 = [(key1, min(dict[key1]), max(dict[key1])) for key1 in dict]
+        list1 = sorted(list1, key = itemgetter(0))
+
+    return list1
+
 
 
 def pregunta_07():
@@ -149,7 +232,21 @@ def pregunta_07():
     ]
 
     """
-    return
+
+    dict = {}
+
+    with open("data.csv", "r") as file:
+        file = [line.split("\t") for line in file]
+        for line in file:
+            key = int(line[1])
+            value = line[0]
+            dict[key] = dict.get(key, [])
+            dict[key].append(value)
+
+        list = [(keys, dict[keys]) for keys in dict]
+        list = sorted(list, key = itemgetter(0))
+
+    return list
 
 
 def pregunta_08():
@@ -174,7 +271,24 @@ def pregunta_08():
     ]
 
     """
-    return
+
+    
+    dict = {}
+
+    with open("data.csv", "r") as file:
+        file = [line.split("\t") for line in file]
+        for line in file:
+            key = int(line[1])
+            value = line[0]
+            dict[key] = dict.get(key, set())
+            dict[key].add(value)
+
+        list = [(keys, dict[keys]) for keys in dict]
+        list = [(keys, [value for value in values]) for keys, values in list]
+        list = [(keys, sorted(lists, key = itemgetter(0))) for keys, lists in list]
+        list = sorted(list, key = itemgetter(0))
+
+    return list
 
 
 def pregunta_09():
@@ -197,7 +311,22 @@ def pregunta_09():
     }
 
     """
-    return
+
+    dict = {}
+
+    with open("data.csv", "r") as file:
+        file = [line.replace("\n", "") for line in file]
+        file = [line.split("\t") for line in file]
+        colum = [line[4].split(",") for line in file]
+        list = reduce(lambda x, y: x + y, colum)
+        list = [item.split(":")[0] for item in list]
+        for item in list:
+            key = item
+            dict[key] = dict.get(key, 0) + 1
+
+        dict1 = {keys : dict[keys] for keys in sorted(dict)}
+
+    return dict1
 
 
 def pregunta_10():
@@ -218,7 +347,15 @@ def pregunta_10():
 
 
     """
-    return
+
+    list = {}
+
+    with open("data.csv", "r") as file:
+        file = [line.replace("\n", "") for line in file]
+        file = [line.split("\t") for line in file]
+        list = [(line[0], len(line[3].split(",")), line[4].count(":")) for line in file]
+
+    return list
 
 
 def pregunta_11():
@@ -239,7 +376,22 @@ def pregunta_11():
 
 
     """
-    return
+
+    dict = {}
+
+    with open("data.csv", "r") as file:
+        file = [line.replace("\n", "") for line in file]
+        file = [line.split("\t") for line in file]
+        list = [(line[1], line[3].split(",")) for line in file]
+        list = [(line[0], word[0]) for line in list for word in line[1]]
+        list = sorted(list, key = itemgetter(1))
+        for item in list:
+            key = item[1]
+            value = int(item[0])
+            dict[key] = dict.get(key, 0) + value
+
+
+    return dict
 
 
 def pregunta_12():
@@ -257,4 +409,40 @@ def pregunta_12():
     }
 
     """
-    return
+
+
+    dict = {}
+
+    with open("data.csv", "r") as file:
+        file = [line.replace("\n", "") for line in file]
+        file = [line.split("\t") for line in file]
+        list = [(line[0], line[4].split(",")) for line in file]
+        list = [(line[0], word[4:]) for line in list for word in line[1]]
+        list = sorted(list, key = itemgetter(0))
+        for item in list:
+            key = item[0]
+            value = int(item[1])
+            dict[key] = dict.get(key, 0) + value
+
+    return dict
+
+if __name__ == "__main__":
+    with open("data.csv", "r") as file:
+        file = [line.replace("\n", "") for line in file]
+        for line in file:
+            print(line)
+
+    print("\n")
+
+    print("1\t" + str(pregunta_01()))
+    print("2\t" + str(pregunta_02()))
+    print("3\t" + str(pregunta_03()))
+    print("4\t" + str(pregunta_04()))
+    print("5\t" + str(pregunta_05()))
+    print("6\t" + str(pregunta_06()))
+    print("7\t" + str(pregunta_07()))
+    print("8\t" + str(pregunta_08()))
+    print("9\t" + str(pregunta_09()))
+    print("10\t" + str(pregunta_10()))
+    print("11\t" + str(pregunta_11()))
+    print("12\t" + str(pregunta_12()))
